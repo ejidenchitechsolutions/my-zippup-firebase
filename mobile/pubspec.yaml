@@ -73,6 +73,9 @@ dependencies:
   
   # Animation
   rive: ^0.12.4
+  
+  # Vibration
+  vibration: ^1.8.4
 
 dev_dependencies:
   flutter_test:
