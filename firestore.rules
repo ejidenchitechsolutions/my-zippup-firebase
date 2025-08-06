@@ -1,0 +1,121 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(resource) {
+      return request.auth.uid == resource.data.userId;
+    }
+    
+    function isProvider() {
+      return request.auth.token.role == 'provider';
+    }
+    
+    function isAdmin() {
+      return request.auth.token.role == 'admin';
+    }
+    
+    function isCustomer() {
+      return request.auth.token.role == 'customer';
+    }
+
+    // Users collection
+    match /users/{userId} {
+      allow read, write: if isAuthenticated() && request.auth.uid == userId;
+      allow read: if isAuthenticated() && (isProvider() || isAdmin());
+    }
+
+    // Service providers collection
+    match /providers/{providerId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && (request.auth.uid == resource.data.userId || isAdmin());
+    }
+
+    // Services collection
+    match /services/{serviceId} {
+      allow read: if true; // Public read access
+      allow write: if isAdmin();
+    }
+
+    // Bookings collection
+    match /bookings/{bookingId} {
+      allow read: if isAuthenticated() && (
+        request.auth.uid == resource.data.customerId || 
+        request.auth.uid == resource.data.providerId ||
+        isAdmin()
+      );
+      allow create: if isAuthenticated() && request.auth.uid == request.resource.data.customerId;
+      allow update: if isAuthenticated() && (
+        request.auth.uid == resource.data.customerId || 
+        request.auth.uid == resource.data.providerId ||
+        isAdmin()
+      );
+    }
+
+    // Marketplace items collection
+    match /marketplace_items/{itemId} {
+      allow read: if true; // Public read access
+      allow write: if isAuthenticated() && (
+        request.auth.uid == resource.data.vendorId || isAdmin()
+      );
+    }
+
+    // Digital services collection
+    match /digital_services/{serviceId} {
+      allow read: if true; // Public read access
+      allow write: if isAuthenticated() && (
+        request.auth.uid == resource.data.providerId || isAdmin()
+      );
+    }
+
+    // Emergency reports collection
+    match /emergencies/{emergencyId} {
+      allow read: if isAuthenticated() && (
+        request.auth.uid == resource.data.userId || 
+        isProvider() || 
+        isAdmin()
+      );
+      allow create: if isAuthenticated() && request.auth.uid == request.resource.data.userId;
+      allow update: if isProvider() || isAdmin();
+    }
+
+    // Wallets collection
+    match /wallets/{walletId} {
+      allow read, write: if isAuthenticated() && request.auth.uid == resource.data.userId;
+    }
+
+    // Transactions collection
+    match /transactions/{transactionId} {
+      allow read: if isAuthenticated() && (
+        request.auth.uid == resource.data.userId || isAdmin()
+      );
+      allow create: if isAuthenticated() && request.auth.uid == request.resource.data.userId;
+    }
+
+    // Reviews collection
+    match /reviews/{reviewId} {
+      allow read: if true; // Public read access
+      allow create: if isAuthenticated() && request.auth.uid == request.resource.data.customerId;
+      allow update: if isAuthenticated() && (
+        request.auth.uid == resource.data.customerId || isAdmin()
+      );
+    }
+
+    // Real-time tracking collection
+    match /tracking/{trackingId} {
+      allow read: if isAuthenticated() && (
+        request.auth.uid == resource.data.customerId || 
+        request.auth.uid == resource.data.providerId
+      );
+      allow write: if isAuthenticated() && request.auth.uid == resource.data.providerId;
+    }
+
+    // Notifications collection
+    match /notifications/{notificationId} {
+      allow read, write: if isAuthenticated() && request.auth.uid == resource.data.userId;
+    }
+  }
+}

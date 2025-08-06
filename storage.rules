@@ -1,0 +1,46 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Profile images
+    match /users/{userId}/profile/{allPaths=**} {
+      allow read: if true; // Public read access for profile images
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Provider documents (licenses, certifications)
+    match /providers/{providerId}/documents/{allPaths=**} {
+      allow read: if request.auth != null && (
+        request.auth.uid == providerId || 
+        request.auth.token.role == 'admin'
+      );
+      allow write: if request.auth != null && request.auth.uid == providerId;
+    }
+    
+    // Marketplace item images
+    match /marketplace/{itemId}/{allPaths=**} {
+      allow read: if true; // Public read access
+      allow write: if request.auth != null;
+    }
+    
+    // Emergency media uploads
+    match /emergencies/{emergencyId}/{allPaths=**} {
+      allow read: if request.auth != null && (
+        request.auth.token.role == 'provider' || 
+        request.auth.token.role == 'admin'
+      );
+      allow write: if request.auth != null;
+    }
+    
+    // Service images
+    match /services/{serviceId}/{allPaths=**} {
+      allow read: if true; // Public read access
+      allow write: if request.auth != null && request.auth.token.role == 'admin';
+    }
+    
+    // Booking attachments
+    match /bookings/{bookingId}/{allPaths=**} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+  }
+}
