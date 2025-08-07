@@ -6,7 +6,7 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAYChC9Zd2KjC9hEP29g1MpNXEc6_97YdE',
+    apiKey: 'AIzaSyD6IF-c6Ce0iSpEDITpaUGJ20y7_ZZxHl0',
     authDomain: 'zippup-demo.firebaseapp.com',
     projectId: 'zippup-demo',
     storageBucket: 'zippup-demo.firebasestorage.app',
@@ -16,7 +16,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAYChC9Zd2KjC9hEP29g1MpNXEc6_97YdE',
+    apiKey: 'AIzaSyD6IF-c6Ce0iSpEDITpaUGJ20y7_ZZxHl0',
     authDomain: 'zippup-demo.firebaseapp.com',
     projectId: 'zippup-demo',
     storageBucket: 'zippup-demo.firebasestorage.app',
@@ -25,7 +25,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAYChC9Zd2KjC9hEP29g1MpNXEc6_97YdE',
+    apiKey: 'AIzaSyD6IF-c6Ce0iSpEDITpaUGJ20y7_ZZxHl0',
     authDomain: 'zippup-demo.firebaseapp.com',
     projectId: 'zippup-demo',
     storageBucket: 'zippup-demo.firebasestorage.app',

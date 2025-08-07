@@ -8,7 +8,7 @@ import { getAnalytics } from 'firebase/analytics'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAYChC9Zd2KjC9hEP29g1MpNXEc6_97YdE",
+  apiKey: "AIzaSyD6IF-c6Ce0iSpEDITpaUGJ20y7_ZZxHl0",
   authDomain: "zippup-demo.firebaseapp.com",
   projectId: "zippup-demo",
   storageBucket: "zippup-demo.firebasestorage.app",
