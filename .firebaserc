@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "zippup-demo"
+  },
+  "targets": {
+    "zippup-demo": {
+      "hosting": {
+        "web": [
+          "zippup-demo"
+        ],
+        "admin": [
+          "zippup-demo-admin"
+        ]
+      }
+    }
+  }
+}

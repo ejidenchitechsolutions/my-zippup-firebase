@@ -1,0 +1,13 @@
+runtime: nodejs18
+
+env_variables:
+  NODE_ENV: production
+
+handlers:
+- url: /.*
+  script: auto
+  secure: always
+
+automatic_scaling:
+  min_instances: 1
+  max_instances: 10
