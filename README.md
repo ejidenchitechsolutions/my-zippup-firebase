@@ -1,525 +1,317 @@
-# 🚀 ZippUp - Complete Multi-Platform Solution
+# 🚀 ZippUp - Multi-Service On-Demand Platform
 
-A comprehensive multi-service on-demand platform similar to Gojek, Uber, or Grab, with additional layers like marketplace, digital services, emergency services, and wallet system.
+> **A comprehensive multi-platform solution similar to Uber, Gojek, or Grab with additional layers for marketplace, digital services, emergency response, and secure payments.**
 
-## 🏗️ Architecture Overview
+[![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com/)
+[![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org/)
+[![Vue.js](https://img.shields.io/badge/Vue.js-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white)](https://vuejs.org/)
+[![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://flutter.dev/)
+[![Google Maps](https://img.shields.io/badge/Google_Maps-4285F4?style=for-the-badge&logo=google-maps&logoColor=white)](https://developers.google.com/maps)
+[![Stripe](https://img.shields.io/badge/Stripe-008CDD?style=for-the-badge&logo=stripe&logoColor=white)](https://stripe.com/)
 
-### 📱 **Multi-Platform Frontend**
-- **Flutter Mobile App** - iOS/Android native experience
-- **React Web Application** - Progressive web app for broader access  
-- **Vue.js Admin Dashboard** - Comprehensive management interface
+## 🎯 **Platform Overview**
 
-### ⚡ **Firebase Backend**
-- **Cloud Functions** - Serverless business logic
-- **Firestore** - Real-time NoSQL database
-- **Authentication** - Multi-provider auth system
-- **Cloud Storage** - File uploads and media
-- **Cloud Messaging** - Push notifications
+ZippUp is a complete multi-service on-demand platform that connects users with service providers, emergency support, marketplace goods, and digital services in real-time using AI-powered search, real-time tracking, and secure payment systems.
 
-## 🎯 Core Features
+### 🌟 **Key Features**
 
-### 🚨 **Emergency Services**
-- **Panic Button** - One-tap emergency activation
-- **Real-time Dispatch** - Automatic provider notification
-- **Priority Routing** - Critical emergencies get maximum coverage
-- **SMS Alerts** - Emergency contact notifications
-- **Live Tracking** - Real-time emergency response tracking
+- 🗺️ **Real-Time Map Tracking** - Live provider and order tracking
+- 🔍 **AI-Powered Search** - Intelligent service discovery
+- 🛎️ **Smart Booking System** - Instant and scheduled bookings
+- 💴 **Secure Wallet System** - Integrated payments with Stripe
+- 🛒 **Marketplace** - Local goods and digital services
+- 🆘 **Emergency Services** - 24/7 panic button and response
+- 👥 **Multi-User Management** - Customers, providers, and admins
 
-### 🛎️ **Smart Booking System**
-- **Instant Booking** - Immediate service requests
-- **Scheduled Booking** - Plan services for later
-- **Urgent Dispatch** - High-priority provider notification
-- **Real-time Status** - Live booking updates
-- **Provider Matching** - AI-powered provider selection
+## 🏗️ **Architecture Overview**
 
-### 💰 **Integrated Wallet System**
-- **Stripe Integration** - Secure card payments
-- **In-app Wallet** - Quick and easy payments
-- **Provider Payouts** - Automated earnings distribution
-- **Transaction History** - Complete payment records
-- **Withdrawal System** - Bank account transfers
-
-### 🛒 **Marketplace**
-- **Local Vendors** - Support local businesses
-- **Product Catalog** - Browse and purchase items
-- **Order Tracking** - Real-time delivery updates
-- **Inventory Management** - Stock monitoring
-
-### 📱 **Digital Services**
-- **Airtime Top-up** - Mobile credit purchases
-- **Data Packages** - Internet data bundles
-- **Bill Payments** - Utility and service payments
-- **Digital Products** - Software and subscriptions
-
-## 📁 Project Structure
-
+### **Multi-Platform Solution**
 ```
-/workspace/
-├── functions/                 # Firebase Cloud Functions (Backend)
-│   ├── src/
-│   │   ├── auth/             # Authentication functions
-│   │   ├── booking/          # Booking system
-│   │   ├── payment/          # Payment processing
-│   │   ├── emergency/        # Emergency services
-│   │   ├── utils/            # Utilities and helpers
-│   │   └── types/            # TypeScript definitions
-│   └── package.json
-├── mobile/                   # Flutter Mobile App
-│   ├── lib/
-│   │   ├── features/         # Feature modules
-│   │   ├── shared/           # Shared components
-│   │   └── core/             # Core utilities
-│   └── pubspec.yaml
-├── web/                      # React Web Application
-│   ├── src/
-│   │   ├── components/       # React components
-│   │   ├── pages/            # Page components
-│   │   ├── hooks/            # Custom hooks
-│   │   └── services/         # API services
-│   └── package.json
-├── admin/                    # Vue.js Admin Dashboard
-│   ├── src/
-│   │   ├── views/            # Admin pages
-│   │   ├── components/       # Vue components
-│   │   ├── stores/           # Pinia stores
-│   │   └── services/         # Admin services
-│   └── package.json
-├── firebase.json             # Firebase configuration
-├── firestore.rules           # Database security rules
-└── README.md
+📱 Mobile App (Flutter)     🌐 Web App (React)     🛠️ Admin Dashboard (Vue.js)
+        ↓                           ↓                        ↓
+                    🔥 Firebase Backend (Node.js Functions)
+                              ↓
+    🗄️ Firestore DB    🔐 Authentication    📁 Cloud Storage    💳 Stripe Payments
 ```
 
-## 🚀 Quick Start
+## 📱 **Applications**
 
-### Prerequisites
+### **1. 🌐 React Web Application**
+- **Location:** `/web/`
+- **Features:** 
+  - Beautiful responsive landing page
+  - Service categories showcase
+  - Real-time status indicators
+  - Google Maps integration
+  - Stripe payment integration
+  - Mobile-first design
+
+**🚀 Live Demo:** [https://zippup-demo.web.app](https://zippup-demo.web.app)
+
+### **2. 🛠️ Vue.js Admin Dashboard**
+- **Location:** `/admin/`
+- **Features:**
+  - Comprehensive management interface
+  - Real-time statistics and monitoring
+  - Provider and booking management
+  - Emergency response center
+  - Financial reporting and analytics
+  - System performance metrics
+
+**🔧 Admin Demo:** [https://zippup-demo--admin.web.app](https://zippup-demo--admin.web.app)
+
+### **3. 📱 Flutter Mobile App**
+- **Location:** `/mobile/`
+- **Features:**
+  - Cross-platform (iOS & Android)
+  - Real-time provider tracking
+  - Emergency panic button
+  - Secure wallet integration
+  - Service booking interface
+  - Push notifications
+
+### **4. 🔧 Firebase Backend**
+- **Location:** `/functions/`
+- **Features:**
+  - Complete REST API with Cloud Functions
+  - Authentication and user management
+  - Real-time notifications
+  - Payment processing with Stripe
+  - Emergency response system
+  - Geolocation services
+
+## 🛠️ **Technical Stack**
+
+### **Frontend Technologies**
+- **React 18** - Modern web application
+- **Vue.js 3** - Admin dashboard with Composition API
+- **Flutter 3.0** - Cross-platform mobile development
+- **Material-UI & Vuetify** - Professional UI components
+- **Google Maps API** - Real-time mapping and tracking
+
+### **Backend Technologies**
+- **Firebase Functions** - Serverless Node.js backend
+- **Firestore** - NoSQL real-time database
+- **Firebase Auth** - Secure authentication system
+- **Cloud Storage** - File and media storage
+- **Firebase Messaging** - Push notifications
+
+### **Integrations**
+- **Google Maps Platform** - Maps, Places, Geocoding APIs
+- **Stripe** - Payment processing and wallet system
+- **Firebase Analytics** - Usage and performance tracking
+
+## 🚀 **Getting Started**
+
+### **Prerequisites**
 - Node.js 18+
-- Flutter SDK 3.10+
+- Flutter SDK 3.0+
 - Firebase CLI
-- Git
+- Google Maps API Key
+- Stripe API Keys
 
-### 1. Clone the Repository
+### **Quick Start**
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/ejidenchitechsolutions/my-zippup-firebase.git
+   cd my-zippup-firebase
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   # Backend Functions
+   cd functions && npm install && cd ..
+   
+   # React Web App
+   cd web && npm install && cd ..
+   
+   # Vue Admin Dashboard
+   cd admin && npm install && cd ..
+   
+   # Flutter Mobile App
+   cd mobile && flutter pub get && cd ..
+   ```
+
+3. **Configure environment variables:**
+   ```bash
+   # Copy and update environment files
+   cp web/.env.example web/.env.local
+   cp admin/.env.example admin/.env.local
+   ```
+
+4. **Start development servers:**
+   ```bash
+   # Use the automated script
+   ./start-apps.sh
+   
+   # Or start individually:
+   # Web App: cd web && npm start
+   # Admin: cd admin && npm run dev
+   # Mobile: cd mobile && flutter run -d chrome
+   ```
+
+### **🔥 Firebase Setup**
+
+1. **Initialize Firebase:**
+   ```bash
+   firebase login
+   firebase use your-project-id
+   ```
+
+2. **Deploy backend:**
+   ```bash
+   cd functions
+   npm run build
+   firebase deploy --only functions
+   ```
+
+3. **Deploy web apps:**
+   ```bash
+   firebase deploy --only hosting
+   ```
+
+## 🎯 **Service Categories**
+
+- 🚗 **Transport Services** - Rides, delivery, logistics
+- 🚑 **Emergency Services** - Medical, fire, security, roadside assistance
+- 💇‍♀️ **Personal Care** - Beauty, wellness, healthcare
+- 📱 **Tech Services** - Device repair, IT support
+- 🔧 **Home Services** - Plumbing, electrical, cleaning, repairs
+- 🏗️ **Construction** - Building, renovation, contracting
+- 💳 **Digital Services** - Airtime, data, bill payments, digital products
+- 🛒 **Marketplace** - Local goods, vendor products
+
+## 💳 **Payment System**
+
+### **Wallet Features**
+- Secure in-app wallet with Stripe integration
+- Multiple payment methods (cards, bank transfers)
+- Real-time balance updates
+- Transaction history and receipts
+- Provider payouts (85% to provider, 15% platform fee)
+
+### **Payment Flow**
+1. **Top-up** wallet via Stripe
+2. **Book** services using wallet balance
+3. **Auto-payment** on service completion
+4. **Provider payout** within 24 hours
+
+## 🚨 **Emergency System**
+
+### **Panic Button Features**
+- One-tap emergency activation
+- GPS location sharing
+- Automatic dispatch to nearest 4 providers
+- Priority booking system
+- SMS alerts to emergency contacts
+- Real-time tracking for responders
+
+### **Emergency Services**
+- Medical emergencies
+- Fire response
+- Security incidents
+- Roadside assistance
+- Towing services
+
+## 📊 **Admin Dashboard Features**
+
+- 📈 **Real-time Analytics** - User activity, bookings, revenue
+- 👥 **User Management** - Customer and provider profiles
+- 🚗 **Provider Tracking** - Live location and availability
+- 💰 **Financial Management** - Payments, payouts, reporting
+- 🚨 **Emergency Center** - Response coordination
+- ⚙️ **System Settings** - Platform configuration
+
+## 🗺️ **Google Maps Integration**
+
+### **Map Features**
+- Real-time provider tracking
+- Service area visualization
+- Route optimization
+- Geofencing for service boundaries
+- Location-based search and filtering
+
+### **APIs Used**
+- Maps JavaScript API
+- Places API
+- Geocoding API
+- Directions API (optional)
+
+## 🔒 **Security & Privacy**
+
+- 🔐 **Firebase Authentication** - Secure login with OTP
+- 🛡️ **Firestore Security Rules** - Role-based access control
+- 🔒 **Data Encryption** - End-to-end encrypted communications
+- 📱 **App Check** - Protection against abuse
+- 💳 **PCI Compliance** - Stripe handles sensitive payment data
+
+## 📱 **Mobile App Features**
+
+- 📍 **Location Services** - GPS tracking and geofencing
+- 🔔 **Push Notifications** - Real-time updates
+- 💳 **In-App Payments** - Secure wallet integration
+- 🗺️ **Interactive Maps** - Provider discovery and tracking
+- 🆘 **Emergency Button** - Quick access to emergency services
+- 📊 **Service History** - Past bookings and receipts
+
+## 🚀 **Deployment**
+
+### **Firebase Hosting**
 ```bash
-git clone https://github.com/your-org/zippup-platform
-cd zippup-platform
-```
-
-### 2. Firebase Setup
-```bash
-# Install Firebase CLI
-npm install -g firebase-tools
-
-# Login to Firebase
-firebase login
-
-# Initialize Firebase project
-firebase init
+# Deploy web applications
+firebase deploy --only hosting
 
 # Deploy backend functions
-cd functions
-npm install
-npm run build
 firebase deploy --only functions
+
+# Deploy database rules
+firebase deploy --only firestore,storage
 ```
 
-### 3. Mobile App Setup
-```bash
-cd mobile
+### **Production URLs**
+- **Web App:** `https://your-project.web.app`
+- **Admin Dashboard:** `https://your-project--admin.web.app`
+- **API Endpoint:** `https://your-region-your-project.cloudfunctions.net`
 
-# Install dependencies
-flutter pub get
+## 📈 **Scalability**
 
-# Configure Firebase for mobile
-# Follow Firebase setup guide for Flutter
+- **Firebase Auto-scaling** - Handles traffic spikes automatically
+- **Global CDN** - Fast content delivery worldwide
+- **Real-time Database** - Instant updates across all clients
+- **Serverless Architecture** - Pay-per-use cost optimization
 
-# Run the app
-flutter run
-```
+## 🤝 **Contributing**
 
-### 4. Web Application Setup
-```bash
-cd web
-
-# Install dependencies
-npm install
-
-# Configure environment
-cp .env.example .env.local
-# Edit .env.local with your Firebase config
-
-# Start development server
-npm start
-```
-
-### 5. Admin Dashboard Setup
-```bash
-cd admin
-
-# Install dependencies
-npm install
-
-# Configure environment
-cp .env.example .env.local
-# Edit .env.local with your Firebase config
-
-# Start development server
-npm run dev
-```
-
-## 🔧 Configuration
-
-### Firebase Environment Variables
-```bash
-# Set Stripe keys
-firebase functions:config:set stripe.secret_key="sk_..." stripe.webhook_secret="whsec_..."
-
-# Set Twilio for SMS (optional)
-firebase functions:config:set twilio.account_sid="..." twilio.auth_token="..."
-
-# Set OpenAI for AI features (optional)  
-firebase functions:config:set openai.api_key="sk-..."
-```
-
-### Mobile App Configuration
-```dart
-// lib/core/config/firebase_config.dart
-const firebaseConfig = {
-  apiKey: "your-api-key",
-  authDomain: "your-project.firebaseapp.com",
-  projectId: "your-project-id",
-  // ... other config
-};
-```
-
-## 📱 Mobile App Features
-
-### 🏠 **Home Screen**
-- **Service Categories** - Transport, Emergency, Home Services, etc.
-- **Emergency Button** - Prominent panic button access
-- **Location Display** - Current location with weather
-- **Wallet Balance** - Quick balance overview
-- **Search Bar** - AI-powered service search
-
-### 🚑 **Emergency Features**
-- **Panic Button** - 5-second countdown activation
-- **Emergency Types** - Medical, Fire, Police, Roadside, Security
-- **Auto-Location** - GPS coordinates sent automatically
-- **Provider Dispatch** - Nearest 4 providers notified
-- **Live Tracking** - Real-time response tracking
-
-### 🛎️ **Booking Flow**
-1. **Service Selection** - Choose from available services
-2. **Provider Browse** - View nearby providers with ratings
-3. **Booking Details** - Set location, time, and requirements
-4. **Payment** - Choose wallet or card payment
-5. **Tracking** - Live provider location and ETA
-6. **Completion** - Service completion and review
-
-### 💳 **Wallet System**
-- **Balance Display** - Current wallet balance
-- **Top-up Options** - Credit/debit card integration
-- **Transaction History** - Complete payment records
-- **Payment Methods** - Multiple payment options
-- **Security** - PIN protection and biometric auth
-
-## 🌐 Web Application Features
-
-### 📊 **Dashboard**
-- **Service Overview** - All available services
-- **Booking Management** - Current and past bookings
-- **Profile Management** - User account settings
-- **Payment History** - Transaction records
-
-### 🔍 **Advanced Search**
-- **Category Filtering** - Filter by service type
-- **Location-based** - Find nearby providers
-- **Price Range** - Filter by budget
-- **Rating Filter** - Quality-based selection
-- **Availability** - Real-time availability status
-
-### 📱 **Responsive Design**
-- **Mobile-first** - Optimized for all screen sizes
-- **Progressive Web App** - Installable web app
-- **Offline Support** - Basic functionality offline
-- **Fast Loading** - Optimized performance
-
-## 🛠️ Admin Dashboard Features
-
-### 📈 **Real-time Analytics**
-- **Live Statistics** - Active users, bookings, emergencies
-- **Revenue Tracking** - Real-time earnings monitoring
-- **Performance Metrics** - Platform health indicators
-- **Usage Analytics** - User behavior insights
-
-### 🚨 **Emergency Management**
-- **Live Emergency Feed** - Real-time emergency alerts
-- **Response Tracking** - Monitor emergency responses
-- **Provider Dispatch** - Manual emergency assignment
-- **Incident Reports** - Detailed emergency logs
-
-### 👥 **User Management**
-- **User Profiles** - Customer account management
-- **Provider Verification** - Service provider approval
-- **Account Status** - Enable/disable accounts
-- **Role Management** - User permission control
-
-### 💰 **Financial Management**
-- **Transaction Monitoring** - All platform transactions
-- **Revenue Analytics** - Earnings breakdown
-- **Provider Payouts** - Payment distribution
-- **Financial Reports** - Comprehensive reporting
-
-### ⚙️ **System Administration**
-- **Service Management** - Add/edit services
-- **Pricing Control** - Dynamic pricing rules
-- **Notification Center** - Platform announcements
-- **System Health** - Server status monitoring
-
-## 🔐 Security Features
-
-### 🛡️ **Authentication & Authorization**
-- **Multi-factor Authentication** - Enhanced security
-- **Role-based Access Control** - Granular permissions
-- **Session Management** - Secure session handling
-- **Custom Claims** - Firebase custom user claims
-
-### 🔒 **Data Protection**
-- **Firestore Security Rules** - Database access control
-- **Input Validation** - Server-side validation
-- **Encryption** - Data encryption at rest and transit
-- **GDPR Compliance** - Privacy regulation compliance
-
-### 💳 **Payment Security**
-- **PCI Compliance** - Secure payment processing
-- **Stripe Integration** - Industry-standard security
-- **Fraud Detection** - Automated fraud prevention
-- **Secure Webhooks** - Verified payment callbacks
-
-## 📊 API Documentation
-
-### 🔗 **Core Endpoints**
-
-#### Authentication
-```typescript
-// User registration
-POST /createUser
-Body: { email, password, firstName, lastName, role }
-
-// User login (handled by Firebase Auth)
-// Profile update
-POST /updateUserProfile
-Body: { firstName?, lastName?, location?, preferences? }
-```
-
-#### Booking System
-```typescript
-// Create booking
-POST /createBooking
-Body: { serviceId, location, description, isUrgent?, scheduledAt? }
-
-// Accept booking (provider)
-POST /acceptBooking
-Body: { bookingId }
-
-// Update booking status
-POST /updateBookingStatus  
-Body: { bookingId, status, notes? }
-```
-
-#### Emergency Services
-```typescript
-// Activate panic button
-POST /panicButton
-Body: { location, description? }
-
-// Create emergency report
-POST /createEmergency
-Body: { type, location, description, priority, contacts }
-
-// Accept emergency (provider)
-POST /acceptEmergency
-Body: { emergencyId }
-```
-
-#### Payment System
-```typescript
-// Get wallet balance
-GET /getWalletBalance
-
-// Top up wallet
-POST /topUpWallet
-Body: { amount, paymentMethodId }
-
-// Process booking payment
-POST /processBookingPayment
-Body: { bookingId, paymentMethod, paymentMethodId? }
-```
-
-## 🧪 Testing
-
-### Unit Tests
-```bash
-# Backend functions
-cd functions
-npm test
-
-# Mobile app
-cd mobile
-flutter test
-
-# Web application
-cd web
-npm test
-
-# Admin dashboard
-cd admin
-npm test
-```
-
-### Integration Tests
-```bash
-# Firebase emulator testing
-firebase emulators:start
-npm run test:integration
-```
-
-### End-to-End Tests
-```bash
-# Mobile app E2E
-cd mobile
-flutter drive --target=test_driver/app.dart
-
-# Web app E2E
-cd web
-npm run test:e2e
-```
-
-## 🚀 Deployment
-
-### Production Deployment
-```bash
-# Deploy Firebase backend
-firebase deploy --project production
-
-# Build and deploy mobile app
-cd mobile
-flutter build apk --release
-flutter build ios --release
-
-# Build and deploy web app
-cd web
-npm run build
-# Deploy to your hosting provider
-
-# Build and deploy admin dashboard
-cd admin
-npm run build:prod
-# Deploy to your hosting provider
-```
-
-### Environment Management
-```bash
-# Development
-firebase use development
-firebase deploy
-
-# Staging
-firebase use staging
-firebase deploy
-
-# Production
-firebase use production
-firebase deploy
-```
-
-## 📈 Monitoring & Analytics
-
-### Performance Monitoring
-- **Firebase Performance** - App performance tracking
-- **Real User Monitoring** - User experience metrics
-- **Error Tracking** - Crash and error reporting
-- **Custom Analytics** - Business metrics tracking
-
-### Business Intelligence
-- **User Engagement** - Active users and retention
-- **Service Performance** - Popular services and providers
-- **Revenue Analytics** - Financial performance tracking
-- **Geographic Insights** - Location-based analytics
-
-## 🤝 Contributing
-
-### Development Workflow
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests for new functionality
-5. Submit a pull request
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-### Code Standards
-- **TypeScript** - Strict type checking
-- **ESLint** - Code linting and formatting
-- **Prettier** - Code formatting
-- **Conventional Commits** - Standardized commit messages
-
-## 📞 Support
-
-### Technical Support
-- **Documentation** - Comprehensive guides and API docs
-- **GitHub Issues** - Bug reports and feature requests
-- **Discord Community** - Developer community support
-- **Email Support** - Direct technical assistance
-
-### Emergency Support
-- **24/7 Monitoring** - Continuous system monitoring
-- **Incident Response** - Rapid issue resolution
-- **Escalation Procedures** - Critical issue handling
-- **Status Page** - Real-time system status
-
-## 📄 License
+## 📄 **License**
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
----
+## 🙏 **Acknowledgments**
 
-## 🌟 Key Highlights
+- Firebase team for the excellent backend infrastructure
+- Google Maps Platform for location services
+- Stripe for secure payment processing
+- Material-UI and Vuetify for beautiful UI components
 
-### ✅ **Production Ready**
-- Comprehensive error handling
-- Security best practices
-- Scalable architecture
-- Performance optimized
+## 📞 **Support**
 
-### ✅ **Multi-Platform**
-- Native mobile experience
-- Progressive web app
-- Admin dashboard
-- Responsive design
-
-### ✅ **Real-time Features**
-- Live location tracking
-- Instant notifications
-- Real-time updates
-- Emergency dispatch
-
-### ✅ **Emergency System**
-- Panic button activation
-- Automatic provider dispatch
-- Priority-based routing
-- SMS alert system
-
-### ✅ **Payment Integration**
-- Stripe payment processing
-- In-app wallet system
-- Automated payouts
-- Transaction security
-
-### ✅ **Comprehensive Admin**
-- Real-time analytics
-- Emergency monitoring
-- User management
-- Financial oversight
+For support and questions:
+- 📧 Email: ejidenchitechsolutions@gmail.com
+- 🐛 Issues: [GitHub Issues](https://github.com/ejidenchitechsolutions/my-zippup-firebase/issues)
 
 ---
 
-**Built with ❤️ for the ZippUp Platform**
+<div align="center">
 
-*Connecting people with services, one tap at a time.* 🚀
+**🌟 Star this repository if you found it helpful!**
+
+Made with ❤️ by [EjidenchiTech Solutions](https://github.com/ejidenchitechsolutions)
+
+</div>
