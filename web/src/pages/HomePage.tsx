@@ -3,32 +3,27 @@ import {
   Box,
   Container,
   Typography,
+  TextField,
+  InputAdornment,
   Grid,
   Card,
   CardContent,
-  CardActionArea,
   Button,
-  TextField,
-  InputAdornment,
-  Fab,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Chip,
   Avatar,
+  Chip,
+  Paper,
+  IconButton,
 } from '@mui/material';
 import {
   Search as SearchIcon,
-  Emergency as EmergencyIcon,
   LocationOn as LocationIcon,
-  AccountBalanceWallet as WalletIcon,
-  Notifications as NotificationsIcon,
+  Star as StarIcon,
+  Phone as PhoneIcon,
+  AccessTime as TimeIcon,
+  LocalOffer as OfferIcon,
 } from '@mui/icons-material';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-
 import { useAuth } from '../hooks/useAuth';
 import { useServices } from '../hooks/useServices';
 import { useLocation } from '../hooks/useLocation';
@@ -36,365 +31,299 @@ import { EmergencyButton } from '../components/EmergencyButton';
 import { ServiceCategoryCard } from '../components/ServiceCategoryCard';
 import { NearbyProviders } from '../components/NearbyProviders';
 import { PromotionsBanner } from '../components/PromotionsBanner';
+import MapComponent from '../components/MapComponent';
 
-const serviceCategories = [
+// Mock data for demonstration
+const mockProviders = [
   {
-    id: 'transport',
-    name: 'Transport',
-    icon: '🚗',
-    color: '#4CAF50',
-    description: 'Rides, delivery, and transport services',
+    id: '1',
+    position: { lat: 40.7589, lng: -73.9851 },
+    title: 'Mike\'s Plumbing',
+    type: 'provider' as const,
+    info: 'Available now • 4.8★ • $50-80/hr'
   },
   {
-    id: 'emergency',
-    name: 'Emergency',
-    icon: '🚑',
-    color: '#E53E3E',
-    description: 'Emergency medical, fire, and security services',
+    id: '2', 
+    position: { lat: 40.7505, lng: -73.9934 },
+    title: 'Quick Fix Electric',
+    type: 'provider' as const,
+    info: 'Available now • 4.9★ • $60-90/hr'
   },
   {
-    id: 'personal_care',
-    name: 'Personal Care',
-    icon: '💇‍♀️',
-    color: '#E91E63',
-    description: 'Beauty, wellness, and personal care services',
+    id: '3',
+    position: { lat: 40.7614, lng: -73.9776 },
+    title: 'Clean Pro Services',
+    type: 'provider' as const,
+    info: 'Busy until 3 PM • 4.7★ • $40-60/hr'
   },
   {
-    id: 'tech_services',
-    name: 'Tech Services',
-    icon: '📱',
-    color: '#2196F3',
-    description: 'Device repair and technical support',
-  },
-  {
-    id: 'home_services',
-    name: 'Home Services',
-    icon: '🔧',
-    color: '#795548',
-    description: 'Plumbing, electrical, cleaning, and repairs',
-  },
-  {
-    id: 'construction',
-    name: 'Construction',
-    icon: '🏗️',
-    color: '#FF5722',
-    description: 'Building, renovation, and construction work',
-  },
-  {
-    id: 'digital_services',
-    name: 'Digital Services',
-    icon: '💳',
-    color: '#673AB7',
-    description: 'Airtime, data, bills, and digital products',
-  },
+    id: '4',
+    position: { lat: 40.7282, lng: -73.9942 },
+    title: 'Tech Support Pro',
+    type: 'provider' as const,
+    info: 'Available now • 4.8★ • $70-100/hr'
+  }
+];
+
+const quickStats = [
+  { label: 'Active Providers', value: '1,234', color: '#4CAF50' },
+  { label: 'Services Available', value: '50+', color: '#2196F3' },
+  { label: 'Average Response', value: '< 15min', color: '#FF9800' },
+  { label: 'Customer Rating', value: '4.9★', color: '#9C27B0' },
 ];
 
 export const HomePage: React.FC = () => {
-  const navigate = useNavigate();
   const { user } = useAuth();
-  const { data: services, isLoading: servicesLoading } = useServices();
-  const { location, isLoading: locationLoading } = useLocation();
+  const { services, loading: servicesLoading } = useServices();
+  const { location, loading: locationLoading } = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedLocation, setSelectedLocation] = useState<{lat: number, lng: number} | null>(null);
 
-  const getGreeting = () => {
-    const hour = new Date().getHours();
-    if (hour < 12) return 'Good Morning';
-    if (hour < 17) return 'Good Afternoon';
-    return 'Good Evening';
-  };
-
-  const handleSearch = () => {
-    if (searchQuery.trim()) {
-      navigate(`/services?search=${encodeURIComponent(searchQuery)}`);
-    }
-  };
-
-  const handleCategoryClick = (categoryId: string) => {
-    navigate(`/services/${categoryId}`);
+  const handleLocationSelect = (location: {lat: number, lng: number}) => {
+    setSelectedLocation(location);
+    console.log('Selected location:', location);
   };
 
   return (
     <>
       <Helmet>
-        <title>ZippUp - Multi-Service Platform</title>
-        <meta name="description" content="Access transport, emergency, home services, and more with ZippUp" />
+        <title>Home - ZippUp</title>
+        <meta name="description" content="Find on-demand services, emergency support, and marketplace goods near you with ZippUp" />
       </Helmet>
 
-      <Box>
+      <Container maxWidth="xl" sx={{ py: 4 }}>
         {/* Hero Section */}
-        <Box
-          sx={{
-            background: 'linear-gradient(135deg, #6C5CE7 0%, #A29BFE 100%)',
-            color: 'white',
-            py: { xs: 4, md: 6 },
-            position: 'relative',
-            overflow: 'hidden',
-          }}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
         >
-          <Container maxWidth="lg">
-            <Grid container spacing={4} alignItems="center">
-              <Grid item xs={12} md={8}>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <Typography variant="h3" component="h1" gutterBottom fontWeight="bold">
-                    {getGreeting()}, {user?.firstName || 'User'}!
-                  </Typography>
-                  <Typography variant="h6" sx={{ opacity: 0.9, mb: 3 }}>
-                    {locationLoading ? (
-                      'Getting your location...'
-                    ) : location ? (
-                      `📍 ${location.address}`
-                    ) : (
-                      'Location not available'
-                    )}
-                  </Typography>
-
-                  {/* Search Bar */}
-                  <Box sx={{ mb: 3 }}>
-                    <TextField
-                      fullWidth
-                      placeholder="Search for services..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-                      sx={{
-                        backgroundColor: 'rgba(255, 255, 255, 0.15)',
-                        borderRadius: 3,
-                        '& .MuiOutlinedInput-root': {
-                          color: 'white',
-                          '& fieldset': {
-                            borderColor: 'rgba(255, 255, 255, 0.3)',
-                          },
-                          '&:hover fieldset': {
-                            borderColor: 'rgba(255, 255, 255, 0.5)',
-                          },
-                          '&.Mui-focused fieldset': {
-                            borderColor: 'white',
-                          },
-                        },
-                        '& .MuiInputBase-input::placeholder': {
-                          color: 'rgba(255, 255, 255, 0.7)',
-                        },
-                      }}
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <SearchIcon sx={{ color: 'rgba(255, 255, 255, 0.7)' }} />
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-                  </Box>
-
-                  {/* Quick Stats */}
-                  <Grid container spacing={2}>
-                    <Grid item xs={6} sm={3}>
-                      <Box textAlign="center">
-                        <Typography variant="h4" fontWeight="bold">
-                          24/7
-                        </Typography>
-                        <Typography variant="body2" sx={{ opacity: 0.8 }}>
-                          Available
-                        </Typography>
-                      </Box>
-                    </Grid>
-                    <Grid item xs={6} sm={3}>
-                      <Box textAlign="center">
-                        <Typography variant="h4" fontWeight="bold">
-                          500+
-                        </Typography>
-                        <Typography variant="body2" sx={{ opacity: 0.8 }}>
-                          Providers
-                        </Typography>
-                      </Box>
-                    </Grid>
-                    <Grid item xs={6} sm={3}>
-                      <Box textAlign="center">
-                        <Typography variant="h4" fontWeight="bold">
-                          15min
-                        </Typography>
-                        <Typography variant="body2" sx={{ opacity: 0.8 }}>
-                          Avg Response
-                        </Typography>
-                      </Box>
-                    </Grid>
-                    <Grid item xs={6} sm={3}>
-                      <Box textAlign="center">
-                        <Typography variant="h4" fontWeight="bold">
-                          4.8★
-                        </Typography>
-                        <Typography variant="body2" sx={{ opacity: 0.8 }}>
-                          Rating
-                        </Typography>
-                      </Box>
-                    </Grid>
-                  </Grid>
-                </motion.div>
-              </Grid>
-
-              <Grid item xs={12} md={4}>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                >
-                  <Box textAlign="center">
-                    <Typography variant="h6" gutterBottom>
-                      Need immediate help?
-                    </Typography>
-                    <EmergencyButton size="large" />
-                  </Box>
-                </motion.div>
-              </Grid>
-            </Grid>
-          </Container>
-        </Box>
-
-        <Container maxWidth="lg" sx={{ py: 4 }}>
-          {/* Emergency Services Banner */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            <Card
+          <Box sx={{ textAlign: 'center', mb: 6 }}>
+            <Typography
+              variant="h2"
+              component="h1"
+              gutterBottom
               sx={{
-                background: 'linear-gradient(135deg, #E53E3E 0%, #C53030 100%)',
-                color: 'white',
-                mb: 4,
-                overflow: 'hidden',
-                position: 'relative',
+                fontWeight: 'bold',
+                background: 'linear-gradient(45deg, #6C5CE7, #A29BFE)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                mb: 2,
               }}
             >
-              <CardContent sx={{ p: 3 }}>
-                <Grid container alignItems="center" spacing={2}>
-                  <Grid item>
-                    <Avatar sx={{ bgcolor: 'rgba(255, 255, 255, 0.2)', width: 56, height: 56 }}>
-                      <EmergencyIcon sx={{ fontSize: 32 }} />
-                    </Avatar>
-                  </Grid>
-                  <Grid item xs>
-                    <Typography variant="h5" fontWeight="bold" gutterBottom>
-                      Emergency Services Available
-                    </Typography>
-                    <Typography variant="body1" sx={{ opacity: 0.9 }}>
-                      Medical, Fire, Police, Roadside assistance - Available 24/7
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Button
-                      variant="contained"
-                      sx={{
-                        bgcolor: 'rgba(255, 255, 255, 0.2)',
-                        '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.3)' },
-                      }}
-                      onClick={() => navigate('/emergency')}
-                    >
-                      Learn More
-                    </Button>
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-          </motion.div>
-
-          {/* Service Categories */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <Typography variant="h4" component="h2" gutterBottom fontWeight="bold">
-              Our Services
+              Welcome to ZippUp
             </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-              Choose from a wide range of services available in your area
+            <Typography variant="h5" color="text.secondary" sx={{ mb: 4, maxWidth: 600, mx: 'auto' }}>
+              Your one-stop platform for on-demand services, emergency support, and marketplace goods
             </Typography>
 
-            <Grid container spacing={3}>
-              {serviceCategories.map((category, index) => (
-                <Grid item xs={12} sm={6} md={4} key={category.id}>
+            {/* Search Bar */}
+            <Paper
+              elevation={3}
+              sx={{
+                p: 2,
+                maxWidth: 600,
+                mx: 'auto',
+                mb: 4,
+                borderRadius: 3,
+              }}
+            >
+              <TextField
+                fullWidth
+                placeholder="Search for services, providers, or products..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon color="primary" />
+                    </InputAdornment>
+                  ),
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <Button variant="contained" sx={{ borderRadius: 2 }}>
+                        Search
+                      </Button>
+                    </InputAdornment>
+                  ),
+                }}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      border: 'none',
+                    },
+                  },
+                }}
+              />
+            </Paper>
+
+            {/* Quick Stats */}
+            <Grid container spacing={3} sx={{ mb: 4 }}>
+              {quickStats.map((stat, index) => (
+                <Grid item xs={6} md={3} key={index}>
                   <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.1 * index }}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: index * 0.1 }}
                   >
-                    <ServiceCategoryCard
-                      category={category}
-                      onClick={() => handleCategoryClick(category.id)}
-                    />
+                    <Paper
+                      elevation={2}
+                      sx={{
+                        p: 3,
+                        textAlign: 'center',
+                        borderRadius: 2,
+                        background: `linear-gradient(135deg, ${stat.color}15, ${stat.color}05)`,
+                      }}
+                    >
+                      <Typography
+                        variant="h4"
+                        fontWeight="bold"
+                        sx={{ color: stat.color, mb: 1 }}
+                      >
+                        {stat.value}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {stat.label}
+                      </Typography>
+                    </Paper>
                   </motion.div>
                 </Grid>
               ))}
             </Grid>
-          </motion.div>
-
-          {/* Promotions Banner */}
-          <Box sx={{ my: 6 }}>
-            <PromotionsBanner />
           </Box>
+        </motion.div>
 
-          {/* Nearby Providers */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
+        {/* Emergency Services Banner */}
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <Paper
+            elevation={3}
+            sx={{
+              p: 4,
+              mb: 6,
+              background: 'linear-gradient(135deg, #FF6B6B, #FF8E53)',
+              color: 'white',
+              borderRadius: 3,
+            }}
           >
-            <NearbyProviders />
-          </motion.div>
-
-          {/* Features Section */}
-          <Box sx={{ mt: 8 }}>
-            <Typography variant="h4" component="h2" textAlign="center" gutterBottom fontWeight="bold">
-              Why Choose ZippUp?
-            </Typography>
-            <Grid container spacing={4} sx={{ mt: 2 }}>
-              <Grid item xs={12} md={4}>
-                <Box textAlign="center">
-                  <Avatar sx={{ bgcolor: 'primary.main', width: 64, height: 64, mx: 'auto', mb: 2 }}>
-                    <LocationIcon sx={{ fontSize: 32 }} />
-                  </Avatar>
-                  <Typography variant="h6" gutterBottom>
-                    Real-time Tracking
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Track your service provider in real-time with accurate ETA updates
-                  </Typography>
+            <Grid container alignItems="center" spacing={3}>
+              <Grid item xs={12} md={8}>
+                <Typography variant="h4" fontWeight="bold" gutterBottom>
+                  🚨 Emergency Services Available 24/7
+                </Typography>
+                <Typography variant="body1" sx={{ mb: 2, opacity: 0.9 }}>
+                  Need immediate help? Our emergency response team is ready to assist you with urgent situations.
+                </Typography>
+                <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+                  <Chip label="Towing Services" sx={{ bgcolor: 'rgba(255,255,255,0.2)', color: 'white' }} />
+                  <Chip label="Emergency Repairs" sx={{ bgcolor: 'rgba(255,255,255,0.2)', color: 'white' }} />
+                  <Chip label="Medical Transport" sx={{ bgcolor: 'rgba(255,255,255,0.2)', color: 'white' }} />
+                  <Chip label="Security Services" sx={{ bgcolor: 'rgba(255,255,255,0.2)', color: 'white' }} />
                 </Box>
               </Grid>
-              <Grid item xs={12} md={4}>
-                <Box textAlign="center">
-                  <Avatar sx={{ bgcolor: 'secondary.main', width: 64, height: 64, mx: 'auto', mb: 2 }}>
-                    <WalletIcon sx={{ fontSize: 32 }} />
-                  </Avatar>
-                  <Typography variant="h6" gutterBottom>
-                    Secure Payments
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Pay securely with our integrated wallet or card payments
-                  </Typography>
-                </Box>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Box textAlign="center">
-                  <Avatar sx={{ bgcolor: 'warning.main', width: 64, height: 64, mx: 'auto', mb: 2 }}>
-                    <NotificationsIcon sx={{ fontSize: 32 }} />
-                  </Avatar>
-                  <Typography variant="h6" gutterBottom>
-                    Instant Notifications
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Stay updated with real-time notifications about your bookings
-                  </Typography>
-                </Box>
+              <Grid item xs={12} md={4} sx={{ textAlign: 'center' }}>
+                <EmergencyButton />
               </Grid>
             </Grid>
-          </Box>
-        </Container>
-      </Box>
+          </Paper>
+        </motion.div>
+
+        {/* Service Categories */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+        >
+          <Typography variant="h4" fontWeight="bold" gutterBottom sx={{ mb: 3 }}>
+            Popular Services
+          </Typography>
+          <Grid container spacing={3} sx={{ mb: 6 }}>
+            {services.slice(0, 8).map((service, index) => (
+              <Grid item xs={6} sm={4} md={3} key={service.id}>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.05 }}
+                >
+                  <ServiceCategoryCard service={service} />
+                </motion.div>
+              </Grid>
+            ))}
+          </Grid>
+        </motion.div>
+
+        {/* Promotions Banner */}
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.5 }}
+        >
+          <PromotionsBanner />
+        </motion.div>
+
+        {/* Nearby Providers Map */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+        >
+          <Typography variant="h4" fontWeight="bold" gutterBottom sx={{ mb: 3, mt: 6 }}>
+            🗺️ Nearby Service Providers
+          </Typography>
+          <Paper elevation={3} sx={{ p: 3, borderRadius: 3, mb: 4 }}>
+            <Box sx={{ mb: 2 }}>
+              <Typography variant="body1" color="text.secondary" gutterBottom>
+                Discover available service providers in your area. Click on markers to see details.
+              </Typography>
+              <Box sx={{ display: 'flex', gap: 2, mb: 2, flexWrap: 'wrap' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Box sx={{ width: 16, height: 16, borderRadius: '50%', bgcolor: '#4CAF50' }} />
+                  <Typography variant="body2">Available Providers</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Box sx={{ width: 16, height: 16, borderRadius: '50%', bgcolor: '#2196F3' }} />
+                  <Typography variant="body2">Your Location</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Box sx={{ width: 16, height: 16, borderRadius: '50%', bgcolor: '#F44336' }} />
+                  <Typography variant="body2">Emergency Services</Typography>
+                </Box>
+              </Box>
+            </Box>
+            
+            <MapComponent
+              center={location || { lat: 40.7128, lng: -74.0060 }}
+              zoom={13}
+              markers={mockProviders}
+              onLocationSelect={handleLocationSelect}
+              height={400}
+              showControls={true}
+              interactive={true}
+            />
+            
+            {selectedLocation && (
+              <Box sx={{ mt: 2, p: 2, bgcolor: 'grey.50', borderRadius: 2 }}>
+                <Typography variant="body2" color="text.secondary">
+                  Selected Location: {selectedLocation.lat.toFixed(4)}, {selectedLocation.lng.toFixed(4)}
+                </Typography>
+              </Box>
+            )}
+          </Paper>
+        </motion.div>
+
+        {/* Nearby Providers List */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7 }}
+        >
+          <NearbyProviders />
+        </motion.div>
+      </Container>
     </>
   );
 };
