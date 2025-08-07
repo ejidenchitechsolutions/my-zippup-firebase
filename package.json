@@ -2,7 +2,7 @@
   "name": "zippup-platform",
   "version": "1.0.0",
   "description": "ZippUp - Multi-Service On-Demand Platform",
-  "main": "web/build/index.html",
+  "main": "index.js",
   "scripts": {
     "build": "npm run build:web",
     "build:web": "cd web && npm install && npm run build",
